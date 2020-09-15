@@ -68,6 +68,7 @@ class Js8ProgressIndicator extends StatefulWidget {
 }
 
 class _Js8ProgressIndicatorState extends State<Js8ProgressIndicator> {
+  Timer timer;
   int _lastsec = 1;
   double _animationValue = 0.0;
 
@@ -79,7 +80,7 @@ class _Js8ProgressIndicatorState extends State<Js8ProgressIndicator> {
 
   void _startAnimation() {
     int milliseconds;
-    new Timer.periodic(Duration(milliseconds: 100), (Timer t) {
+    timer = Timer.periodic(Duration(milliseconds: 100), (Timer t) {
       milliseconds =
           (DateTime.now().second * 1000 + DateTime.now().millisecond) %
               (widget.js8mode.seconds * 1000);
@@ -98,6 +99,7 @@ class _Js8ProgressIndicatorState extends State<Js8ProgressIndicator> {
 
   @override
   void dispose() {
+    timer.cancel();
     super.dispose();
   }
 
